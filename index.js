@@ -27,13 +27,19 @@ async function run() {
 
         const formCollection = client.db("form-builder").collection("forms");
 
-        // Forms get api
+        // Forms get API
         app.get('/forms', async (req, res) => {
             const cursor = formCollection.find();
             const result = await cursor.find().toArray;
             res.send(result);
         })
 
+        // Form post API
+        app.post('/forms', async(req, res) => {
+            const data = req.body;
+            const result = await formCollection.insertOne(data);
+            res.send(result);
+        })
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
         // Ensures that the client will close when you finish/error
