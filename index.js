@@ -25,7 +25,14 @@ const client = new MongoClient(uri, {
 async function run() {
     try {
 
+        const formCollection = client.db("form-builder").collection("forms");
 
+        // Forms get api
+        app.get('/forms', async (req, res) => {
+            const cursor = formCollection.find();
+            const result = await cursor.find().toArray;
+            res.send(result);
+        })
 
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
