@@ -30,7 +30,7 @@ async function run() {
         // Forms get API
         app.get('/forms', async (req, res) => {
             const cursor = formCollection.find();
-            const result = await cursor.find().toArray;
+            const result = await cursor.toArray();
             res.send(result);
         })
 
